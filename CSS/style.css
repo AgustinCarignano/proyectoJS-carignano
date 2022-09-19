@@ -71,9 +71,9 @@
     padding-top: 12px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
     transition: transform 0.5s 0.5s; }
-    .card:hover {
+    /* .card:hover {
       transform: scale(1.15);
-      z-index: 10; }
+      z-index: 10; } */
   
   .proyecto__texto {
     text-align: center;
@@ -166,3 +166,40 @@
       justify-items: center; }
     .formulario {
       max-width: 300px; } }
+
+
+.tarjetaCarrito{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px 10px;
+  /* border: solid 1px #711d7a;
+  padding: 10px; */
+}
+
+.carrito {
+  margin: 20px auto;
+  max-width: 500px;
+}
+
+.carritoTitulo {
+  text-align: center;
+  border-top: solid 1px #711d7a;
+}
+
+.divCarrito{
+ width: 170px;
+}
+
+.divCarrito h6{
+  text-align: center;
+}
+
+.tarjetaCarrito img {
+  max-width: 100px;
+  margin: 0 10px 0 20px;
+}
+
+.tarjetaCarrito p {
+  margin: 0;
+}
