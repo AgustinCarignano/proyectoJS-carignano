@@ -203,3 +203,39 @@
 .tarjetaCarrito p {
   margin: 0;
 }
+
+.tienda {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.filtro {
+  border-top: solid 1px #711d7a;
+  border-bottom:  solid 1px #711d7a;
+  text-align: center;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.filtro div {
+  width: auto;
+  margin: 5px auto;
+}
+
+.buttonFiltro{
+  width: auto;
+  display: block;
+  margin: 10px auto;
+  font-size: 0.8rem;
+}
+
+.eliminarFiltro {
+  background-color: transparent;
+  border: none;
+  font-size: 1.2rem;
+}
+
+.botonComprar {
+  width: auto;
+  margin: 15px auto 0;
+}

@@ -1,19 +1,8 @@
 //Simulación de un sitio de venta de ropa.
 
-//Declaración del array "carrito"
+//Declaración del variables tienda y carrito
 const tienda = [];
-//const tiendaTodo = [];
-const carrito = JSON.parse(localStorage.getItem("carrito")) || [];;
-// let resp
-// let resp2
-// let resp3
-// let resp4
-// let resp5
-// let avanzar=true;
-// let filtro
-// const filtrado = [];
-// const filtroPrecio = []
-// const categorias =[]
+const carrito = JSON.parse(localStorage.getItem("carrito"))
 
 //Clase constructora de objetos
 class productos {
@@ -38,21 +27,13 @@ function eliminar(producto) {
     carrito.splice(carrito.indexOf(producto),1);
 }
 
-//Mostrar en consola los objetos del carrito
-// function mostrar(array) {
-//     console.log("Agregado al carrito: ");
-//     array.forEach(element => {
-//         console.log(element.articulo);
-//     });
-// }
-
 //Calcular y mostrar el total del carrito
-function sumaTotal(array) {
-    let sum = array.reduce((acum,el)=>{
-        return acum + el.precio;
-    }, 0);
-    console.log("El total del carrito es de: " + sum);
-}
+// function sumaTotal(array) {
+//     let sum = array.reduce((acum,el)=>{
+//         return acum + el.precio;
+//     }, 0);
+//     console.log("El total del carrito es de: " + sum);
+// }
 
 
 //Creación de los objetos
@@ -83,9 +64,10 @@ cargar(tienda, bermuda);
 cargar(tienda, maxiCamisa);
 cargar(tienda, vestidoLila);
 
+//Carga de tarjetas en el DOM
 const divTienda = document.querySelector("#productos")
-function crearTarjetas() {
-    tienda.forEach((producto)=>{
+function crearTarjetas(array) {
+    array.forEach((producto)=>{
         divTienda.innerHTML += `<article class="card m-auto my-3" style="width: 18rem;">
         <img src=${producto.img} class="card-img-top">
         <div class="card-body text-center" id="${producto.id}">
@@ -95,12 +77,12 @@ function crearTarjetas() {
         </div>
         </article>`
 })
-    agregarBoton ();
+    agregarBoton (array);
 }
-crearTarjetas()
 
-function agregarBoton (){
-    tienda.forEach(producto=>{
+//declaración de la función para agregar funcionalidad al boton de "Agregar al carrito"
+function agregarBoton (array){
+    array.forEach(producto=>{
         document.querySelector(`#btn-agregar${producto.id}`).addEventListener("click",()=>{
             let existe = carrito.some(prod=>prod.id === producto.id);
             if(existe===false){
@@ -111,148 +93,80 @@ function agregarBoton (){
             prodFind.cantidad++;
             }
             
-            // cargar(carrito,producto)
-            // console.log(carrito);
-            console.log(carrito);
             crearCarrito()
         })
     })
 }
-//`<h3>Carrito</h3>`
+
+//Creación del carrito de compras cuando se seleccionan productos (o a partir del local storage)
 const divCarrito = document.querySelector("#carrito")
 function crearCarrito() {
         divCarrito.innerHTML=`<h3 class="carritoTitulo">Carrito</h3>`;
-    carrito.forEach((producto)=>{
-        divCarrito.innerHTML += `
-        <article class="tarjetaCarrito">
-            <div>
-                <button class="btn boton" id="btn-quitar${producto.id}">🗑</button>
-            </div>
-            <img src=${producto.img}>
-            <div class="divCarrito">
-                <h6>${producto.articulo}</h6>
-                <p>Precio: $${producto.precio}</p>
-                <p>Cantidad: ${producto.cantidad}</p>
-            </div>
-        </article>`
-})
+        carrito.forEach((producto)=>{
+            divCarrito.innerHTML += `
+            <article class="tarjetaCarrito">
+                <div>
+                    <button class="btn boton" id="btn-quitar${producto.id}">🗑</button>
+                </div>
+                <img src=${producto.img}>
+                <div class="divCarrito">
+                    <h6>${producto.articulo}</h6>
+                    <p>Precio: $${producto.precio}</p>
+                    <p>Cantidad: ${producto.cantidad}</p>
+                </div>
+            </article>`
+        })
     if (carrito.length==0) {
-        divCarrito.innerHTML="";
+        divCarrito.innerHTML=""; //limpio el carrito si no quedan productos
+    }else { //Si hay productos en el carrito, se agregan botones adicionales para vaciar o avanzar con la compra
+        divCarrito.innerHTML+=`<button class="btn boton botonComprar">Vaciar carrito</button>
+        <button class="btn boton botonComprar">Comprar</button>`
     }
-    localStorage.setItem("carrito",JSON.stringify(carrito))
+    localStorage.setItem("carrito",JSON.stringify(carrito)) //Guardo los productos agregados al carrito en el local storage
     agregarBotonEliminar ();
 }
 
+//Agregando funcionalidad al boton de eliminar elementos individuales del carrito
 function agregarBotonEliminar (){
     carrito.forEach(producto=>{
         document.querySelector(`#btn-quitar${producto.id}`).addEventListener("click",()=>{
             let cantidad = producto.cantidad// = carrito.some(prod=>prod.id === producto.id);
             if(cantidad>1){
             producto.cantidad = producto.cantidad-1;
-            //cargar(carrito,producto)
             }else{
                 eliminar(producto);
-            //let prodFind = carrito.find(prod=> prod.id===producto.id);
-            //prodFind.cantidad++;
             }
             
-            // cargar(carrito,producto)
-            // console.log(carrito);
-            let vacio=carrito.length;
-            if (vacio==0) {
-                divCarrito.innerHTML="";
-            }
             crearCarrito()
         })
     })
 }
+
+//Creación de un array de las categorías disponibles para poder filtrar
+const categoriasRepetidas = tienda.map (el => el.categoria);
+const categoriasFiltradas = categoriasRepetidas.filter((item,index)=>{
+    return categoriasRepetidas.indexOf(item) === index;
+})
+
+//Agregando funcionalidad al filtro
+categoriasFiltradas.forEach(element=> {
+    document.querySelector(`#${element}`).addEventListener("click", ()=> {
+        divTienda.innerHTML = ""
+            const mostrarfiltro = tienda.filter (el => el.categoria.includes(`${element}`))
+            crearTarjetas(mostrarfiltro);
+    })
+})
+
+//Agregando funcionalidad al boton para eliminar el filtro aplicado y mostrar toda la tienda
+const eliminarFiltro=document.querySelector("#eliminarFiltro")
+eliminarFiltro.addEventListener("click", ()=> {
+    divTienda.innerHTML = ""
+    crearTarjetas(tienda)
+})
+
+
+//Mostrar tarjeta de productos y carrito si existen valores guardados en el local storage
+crearTarjetas(tienda)
 crearCarrito()
 
-//Creando las etiquetas visibles en la página
-
-
-//creación de función de filtrado
-/* const camisas = tienda.filter(el => el.categoria == "camisa"); */
-/* console.log(camisas); */
-
-//Creando un array que pueda ver el cliente
-    // for (const element of tienda) {
-    //     let i= tienda.indexOf(element)+1;
-    //     tiendaTodo.push(i+"-"+element.articulo+" --> $" + element.precio);
-    // }
-
-//creación de una lista de categorias disponibles
-// const categoriasRepetidas = tienda.map (el => el.categoria);
-// const categoriasFiltradas = categoriasRepetidas.filter((item,index)=>{
-//     return categoriasRepetidas.indexOf(item) === index;
-//   })
-// for (const element of categoriasFiltradas) {
-//     let i= categoriasFiltradas.indexOf(element)+1;
-//     categorias.push(i+"-"+element);
-// }
-
-//Blucle para interactuar con el comprador
-// while (avanzar) {
-//     //Se le pide que elija directamente un producto, filtre según la categoria o salga
-//     resp = prompt("Las prendas disponibles en la tienda son :" + "\r\n" + tiendaTodo.join("\r\n") + "\r\n" + "Puede aplicar un filtro (F), agregar un producto al carrito (escriba el número) o salir (esc)");
-//     if (resp=="f" || resp=="F") {
-//         //para mantener limpio el array con los elementos filtrados
-//         while (filtrado.length!=0) {
-//             filtrado.pop()
-//         }
-//         //Se pide elegir una categoría
-//         resp2 = prompt("Lista de categorías :" + "\r\n" + categorias.join("\r\n") + "\r\n" + "Seleccione la categoría eligiendo el número o vuelva al inicio (esc)");
-//         if (resp2=="esc" || resp2=="ESC") {
-//             continue
-//         } else {
-//             //creación del array con los productos de la categoría seleccionada
-//             let index=parseInt(resp2)-1;
-//             let variable = categoriasFiltradas[index];
-//             filtro = tienda.filter(el => el.categoria == variable);
-//             for (const element of filtro) {
-//                 let i= filtro.indexOf(element)+1;
-//                 filtrado.push(i+"-"+element.articulo);
-//                 filtroPrecio.push(i+"-"+element.articulo+" --> $" + element.precio)
-//             }
-//             //Se da la opción de comprar o de volver al menú principal
-//             resp3=prompt("Las prendas disponibles en la tienda son :" + "\r\n" + filtrado.join("\r\n") + "\r\n" + "Seleccione una prenda o elimine el filtro (esc)");
-//             if (resp3=="esc" || resp3=="ESC") {
-//                 continue;
-//             } else {
-//                 //Si selecciona un artículo, se agrega al carrito y se da la opción de continuar o finalizar la operacion de compra
-//                 let index=parseInt(resp3)-1
-//                 carrito.push(filtro[index])
-//                 resp4=prompt("Artículo agregado con éxito!" + "\r\n" + "¿Desea continuar comprando? (S o N)")
-//                 if (resp4=="n" || resp4=="N") {
-//                 avanzar=false;
-//                 }
-//             }
-//         }
-//     }else if (resp=="esc" || resp=="ESC") {
-//         avanzar=false;
-//     }else {
-//         //Si se seleccionó un artículo directamente, se agrega al carrito
-//         let index=parseInt(resp)-1
-//         carrito.push(tienda[index])
-//         resp5=prompt("Artículo agregado con éxito!" + "\r\n" + "¿Desea continuar comprando? (S o N)")
-//             if (resp5=="n" || resp5=="N") {
-//                 avanzar=false;
-//             }
-//     }
-// }
-
-
-//ver los objetos del carrito y el total
-// if (carrito.length==0) {
-//     console.log("¡Gracias por su visita!");
-// }else {
-//     mostrar(carrito);
-//     sumaTotal(carrito);
-//     console.log("Puede avanzar con el pago");
-// }
-
-//eliminar un objeto, agregar otro y mostrar por consola el carrito y el total
-/* eliminar(campera);
-cargar(remera);
-mostrar(carrito);
-sumaTotal(carrito); */
+//Falta agregar funcionalidad a los botones del carrito
