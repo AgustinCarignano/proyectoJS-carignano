@@ -2,7 +2,7 @@
 
 //Declaración del variables tienda y carrito
 const tienda = [];
-const carrito = JSON.parse(localStorage.getItem("carrito"))
+let carrito = JSON.parse(localStorage.getItem("carrito"))
 
 //Clase constructora de objetos
 class productos {
@@ -119,11 +119,13 @@ function crearCarrito() {
     if (carrito.length==0) {
         divCarrito.innerHTML=""; //limpio el carrito si no quedan productos
     }else { //Si hay productos en el carrito, se agregan botones adicionales para vaciar o avanzar con la compra
-        divCarrito.innerHTML+=`<button class="btn boton botonComprar">Vaciar carrito</button>
-        <button class="btn boton botonComprar">Comprar</button>`
+        divCarrito.innerHTML+=`<button class="btn boton botonComprar" id="vaciarCarrito">Vaciar carrito</button>
+        <button class="btn boton botonComprar" id="comprarCarrito">Comprar</button>`
     }
     localStorage.setItem("carrito",JSON.stringify(carrito)) //Guardo los productos agregados al carrito en el local storage
     agregarBotonEliminar ();
+    agregarBotonVaciarCarrito ();
+    agregarBotonComprar ();
 }
 
 //Agregando funcionalidad al boton de eliminar elementos individuales del carrito
@@ -139,6 +141,21 @@ function agregarBotonEliminar (){
             
             crearCarrito()
         })
+    })
+}
+
+//Agregando funcionalidad al botón para vaciar todo el carrito de compras
+function agregarBotonVaciarCarrito (){
+    document.querySelector("#vaciarCarrito").addEventListener("click", ()=> {
+        carrito = []
+        crearCarrito()
+    })
+}
+
+//Funcionalidad limitada del boton comprar. El proyecto debe avanzar por este lado.
+function agregarBotonComprar () {
+    document.querySelector("#comprarCarrito").addEventListener("click", ()=> {
+        alert("¡Lo siento! El botón aún no hace lo que esperas.")
     })
 }
 
