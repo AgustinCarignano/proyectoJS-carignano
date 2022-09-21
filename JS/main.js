@@ -2,7 +2,7 @@
 
 //Declaración del variables tienda y carrito
 const tienda = [];
-let carrito = JSON.parse(localStorage.getItem("carrito"))
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
 //Clase constructora de objetos
 class productos {
@@ -65,7 +65,7 @@ cargar(tienda, maxiCamisa);
 cargar(tienda, vestidoLila);
 
 //Carga de tarjetas en el DOM
-const divTienda = document.querySelector("#productos")
+const divTienda = document.querySelector("#productos");
 function crearTarjetas(array) {
     array.forEach((producto)=>{
         divTienda.innerHTML += `<article class="card m-auto my-3" style="width: 18rem;">
@@ -75,7 +75,7 @@ function crearTarjetas(array) {
         <p class="card-text">Talle: ${producto.talle} <br>Precio: $${producto.precio}</p>
         <button class="btn boton" id="btn-agregar${producto.id}">Agregar al carrito</button>
         </div>
-        </article>`
+        </article>`;
 })
     agregarBoton (array);
 }
@@ -87,19 +87,19 @@ function agregarBoton (array){
             let existe = carrito.some(prod=>prod.id === producto.id);
             if(existe===false){
             producto.cantidad = 1;
-            cargar(carrito,producto)
+            cargar(carrito,producto);
             }else{
             let prodFind = carrito.find(prod=> prod.id===producto.id);
             prodFind.cantidad++;
             }
             
-            crearCarrito()
+            crearCarrito();
         })
     })
 }
 
 //Creación del carrito de compras cuando se seleccionan productos (o a partir del local storage)
-const divCarrito = document.querySelector("#carrito")
+const divCarrito = document.querySelector("#carrito");
 function crearCarrito() {
         divCarrito.innerHTML=`<h3 class="carritoTitulo">Carrito</h3>`;
         carrito.forEach((producto)=>{
@@ -114,15 +114,15 @@ function crearCarrito() {
                     <p>Precio: $${producto.precio}</p>
                     <p>Cantidad: ${producto.cantidad}</p>
                 </div>
-            </article>`
-        })
+            </article>`;
+        });
     if (carrito.length==0) {
         divCarrito.innerHTML=""; //limpio el carrito si no quedan productos
     }else { //Si hay productos en el carrito, se agregan botones adicionales para vaciar o avanzar con la compra
         divCarrito.innerHTML+=`<button class="btn boton botonComprar" id="vaciarCarrito">Vaciar carrito</button>
-        <button class="btn boton botonComprar" id="comprarCarrito">Comprar</button>`
+        <button class="btn boton botonComprar" id="comprarCarrito">Comprar</button>`;
     }
-    localStorage.setItem("carrito",JSON.stringify(carrito)) //Guardo los productos agregados al carrito en el local storage
+    localStorage.setItem("carrito",JSON.stringify(carrito)); //Guardo los productos agregados al carrito en el local storage
     agregarBotonEliminar ();
     agregarBotonVaciarCarrito ();
     agregarBotonComprar ();
@@ -132,14 +132,14 @@ function crearCarrito() {
 function agregarBotonEliminar (){
     carrito.forEach(producto=>{
         document.querySelector(`#btn-quitar${producto.id}`).addEventListener("click",()=>{
-            let cantidad = producto.cantidad// = carrito.some(prod=>prod.id === producto.id);
+            let cantidad = producto.cantidad;// = carrito.some(prod=>prod.id === producto.id);
             if(cantidad>1){
             producto.cantidad = producto.cantidad-1;
             }else{
                 eliminar(producto);
             }
             
-            crearCarrito()
+            crearCarrito();
         })
     })
 }
@@ -147,15 +147,15 @@ function agregarBotonEliminar (){
 //Agregando funcionalidad al botón para vaciar todo el carrito de compras
 function agregarBotonVaciarCarrito (){
     document.querySelector("#vaciarCarrito").addEventListener("click", ()=> {
-        carrito = []
-        crearCarrito()
+        carrito = [];
+        crearCarrito();
     })
 }
 
 //Funcionalidad limitada del boton comprar. El proyecto debe avanzar por este lado.
 function agregarBotonComprar () {
     document.querySelector("#comprarCarrito").addEventListener("click", ()=> {
-        alert("¡Lo siento! El botón aún no hace lo que esperas.")
+        alert("¡Lo siento! El botón aún no hace lo que esperas.");
     })
 }
 
@@ -168,22 +168,21 @@ const categoriasFiltradas = categoriasRepetidas.filter((item,index)=>{
 //Agregando funcionalidad al filtro
 categoriasFiltradas.forEach(element=> {
     document.querySelector(`#${element}`).addEventListener("click", ()=> {
-        divTienda.innerHTML = ""
-            const mostrarfiltro = tienda.filter (el => el.categoria.includes(`${element}`))
+        divTienda.innerHTML = "";
+            const mostrarfiltro = tienda.filter (el => el.categoria.includes(`${element}`));
             crearTarjetas(mostrarfiltro);
     })
 })
 
 //Agregando funcionalidad al boton para eliminar el filtro aplicado y mostrar toda la tienda
-const eliminarFiltro=document.querySelector("#eliminarFiltro")
+const eliminarFiltro=document.querySelector("#eliminarFiltro");
 eliminarFiltro.addEventListener("click", ()=> {
-    divTienda.innerHTML = ""
-    crearTarjetas(tienda)
+    divTienda.innerHTML = "";
+    crearTarjetas(tienda);
 })
 
 
 //Mostrar tarjeta de productos y carrito si existen valores guardados en el local storage
-crearTarjetas(tienda)
-crearCarrito()
+crearTarjetas(tienda);
+crearCarrito();
 
-//Falta agregar funcionalidad a los botones del carrito
