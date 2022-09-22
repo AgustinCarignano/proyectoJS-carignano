@@ -2,7 +2,7 @@
 
 //Declaración del variables tienda y carrito
 const tienda = [];
-let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+let carrito = JSON.parse(localStorage.getItem("carrito")) || []; //Operdaor lógico OR para acceso condicional a la variable en el local storage
 
 //Clase constructora de objetos
 class productos {
@@ -84,14 +84,8 @@ function crearTarjetas(array) {
 function agregarBoton (array){
     array.forEach(producto=>{
         document.querySelector(`#btn-agregar${producto.id}`).addEventListener("click",()=>{
-            let existe = carrito.some(prod=>prod.id === producto.id);
-            if(existe===false){
-            producto.cantidad = 1;
-            cargar(carrito,producto);
-            }else{
-            let prodFind = carrito.find(prod=> prod.id===producto.id);
-            prodFind.cantidad++;
-            }
+            //cambio de un if..else por el operador ternario
+            carrito.some(prod=>prod.id === producto.id) ? (carrito.find(prod=> prod.id===producto.id).cantidad++) : (producto.cantidad = 1, cargar(carrito,producto));
             
             crearCarrito();
         })
@@ -101,27 +95,25 @@ function agregarBoton (array){
 //Creación del carrito de compras cuando se seleccionan productos (o a partir del local storage)
 const divCarrito = document.querySelector("#carrito");
 function crearCarrito() {
-        divCarrito.innerHTML=`<h3 class="carritoTitulo">Carrito</h3>`;
-        carrito.forEach((producto)=>{
-            divCarrito.innerHTML += `
-            <article class="tarjetaCarrito">
-                <div>
-                    <button class="btn boton" id="btn-quitar${producto.id}">🗑</button>
-                </div>
-                <img src=${producto.img}>
-                <div class="divCarrito">
-                    <h6>${producto.articulo}</h6>
-                    <p>Precio: $${producto.precio}</p>
-                    <p>Cantidad: ${producto.cantidad}</p>
-                </div>
-            </article>`;
-        });
-    if (carrito.length==0) {
-        divCarrito.innerHTML=""; //limpio el carrito si no quedan productos
-    }else { //Si hay productos en el carrito, se agregan botones adicionales para vaciar o avanzar con la compra
-        divCarrito.innerHTML+=`<button class="btn boton botonComprar" id="vaciarCarrito">Vaciar carrito</button>
-        <button class="btn boton botonComprar" id="comprarCarrito">Comprar</button>`;
-    }
+    divCarrito.innerHTML=`<h3 class="carritoTitulo">Carrito</h3>`;
+    carrito.forEach((producto)=>{
+        divCarrito.innerHTML += `
+        <article class="tarjetaCarrito">
+            <div>
+                <button class="btn boton" id="btn-quitar${producto.id}">🗑</button>
+            </div>
+            <img src=${producto.img}>
+            <div class="divCarrito">
+                <h6>${producto.articulo}</h6>
+                <p>Precio: $${producto.precio}</p>
+                <p>Cantidad: ${producto.cantidad}</p>
+            </div>
+        </article>`;
+    });
+    //cambio de un if..else por operador ternario
+    carrito.length==0 ? divCarrito.innerHTML="" : divCarrito.innerHTML+=`<button class="btn boton botonComprar" id="vaciarCarrito">Vaciar carrito</button>
+    <button class="btn boton botonComprar" id="comprarCarrito">Comprar</button>`;
+   
     localStorage.setItem("carrito",JSON.stringify(carrito)); //Guardo los productos agregados al carrito en el local storage
     agregarBotonEliminar ();
     agregarBotonVaciarCarrito ();
@@ -132,12 +124,7 @@ function crearCarrito() {
 function agregarBotonEliminar (){
     carrito.forEach(producto=>{
         document.querySelector(`#btn-quitar${producto.id}`).addEventListener("click",()=>{
-            let cantidad = producto.cantidad;// = carrito.some(prod=>prod.id === producto.id);
-            if(cantidad>1){
-            producto.cantidad = producto.cantidad-1;
-            }else{
-                eliminar(producto);
-            }
+            producto.cantidad>1 ?  producto.cantidad = producto.cantidad-1 : eliminar(producto); //Operador ternario
             
             crearCarrito();
         })
@@ -160,13 +147,15 @@ function agregarBotonComprar () {
 }
 
 //Creación de un array de las categorías disponibles para poder filtrar
-const categoriasRepetidas = tienda.map (el => el.categoria);
-const categoriasFiltradas = categoriasRepetidas.filter((item,index)=>{
-    return categoriasRepetidas.indexOf(item) === index;
+//función redefinida usando la desectructuración de un objeto y obteniendo el parámetro de interes
+const categorias = []
+tienda.forEach(producto=>{
+    let {categoria}=producto;
+    categorias.some(prod => prod===categoria) ? "" : categorias.push(categoria)
 })
 
 //Agregando funcionalidad al filtro
-categoriasFiltradas.forEach(element=> {
+categorias.forEach(element=> {
     document.querySelector(`#${element}`).addEventListener("click", ()=> {
         divTienda.innerHTML = "";
             const mostrarfiltro = tienda.filter (el => el.categoria.includes(`${element}`));
@@ -185,4 +174,3 @@ eliminarFiltro.addEventListener("click", ()=> {
 //Mostrar tarjeta de productos y carrito si existen valores guardados en el local storage
 crearTarjetas(tienda);
 crearCarrito();
-
