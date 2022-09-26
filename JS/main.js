@@ -88,6 +88,18 @@ function agregarBoton (array){
             carrito.some(prod=>prod.id === producto.id) ? (carrito.find(prod=> prod.id===producto.id).cantidad++) : (producto.cantidad = 1, cargar(carrito,producto));
             
             crearCarrito();
+
+            Toastify({
+                text: "Agregado 1 elemento al carrito",
+                duration: 2000,
+                gravity: "bottom", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                style: {
+                  background: "#4E5C23",
+                },
+              }).showToast();
+
         })
     })
 }
@@ -126,6 +138,17 @@ function agregarBotonEliminar (){
         document.querySelector(`#btn-quitar${producto.id}`).addEventListener("click",()=>{
             producto.cantidad>1 ?  producto.cantidad = producto.cantidad-1 : eliminar(producto); //Operador ternario
             
+            Toastify({
+                text: "Se ha eliminado un item del carrito",
+                duration: 2000,
+                gravity: "bottom", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                style: {
+                  background: "#A81C07",
+                },
+              }).showToast();
+
             crearCarrito();
         })
     })
@@ -134,8 +157,21 @@ function agregarBotonEliminar (){
 //Agregando funcionalidad al botón para vaciar todo el carrito de compras
 function agregarBotonVaciarCarrito (){
     document.querySelector("#vaciarCarrito").addEventListener("click", ()=> {
-        carrito = [];
-        crearCarrito();
+        Swal.fire({
+            title: '¿Estás seguro/a?',
+            text: "Deberá elegir nuevamente los productos si elije vaciar el carrito",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, vaciar carrito'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire('Se ha vaciado el carrito')
+                carrito = [];
+                crearCarrito();
+            }
+          })
     })
 }
 
