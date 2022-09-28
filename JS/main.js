@@ -178,10 +178,15 @@ function agregarBotonVaciarCarrito (){
 //Funcionalidad limitada del boton comprar. El proyecto debe avanzar por este lado.
 function agregarBotonComprar () {
     document.querySelector("#comprarCarrito").addEventListener("click", ()=> {
-        alert("¡Lo siento! El botón aún no hace lo que esperas.");
+        //alert("¡Lo siento! El botón aún no hace lo que esperas.");
+
+        Swal.fire(
+            '¡Aún no hay nada por aquí!',
+            'Sigo trabajando en esto.',
+            'error'
+          )
     })
 }
-
 //Creación de un array de las categorías disponibles para poder filtrar
 //función redefinida usando la desectructuración de un objeto y obteniendo el parámetro de interes
 const categorias = []
