@@ -2,7 +2,7 @@
 
 //Declaración del variables tienda y carrito
 const tienda = [];
-let carrito = JSON.parse(localStorage.getItem("carrito")) || []; //Operdaor lógico OR para acceso condicional a la variable en el local storage
+let carrito = JSON.parse(localStorage.getItem("carrito")) || []; //Operedor lógico OR para acceso condicional a la variable en el local storage
 
 //Clase constructora de objetos
 class productos {
@@ -27,42 +27,16 @@ function eliminar(producto) {
     carrito.splice(carrito.indexOf(producto),1);
 }
 
-//Calcular y mostrar el total del carrito
-// function sumaTotal(array) {
-//     let sum = array.reduce((acum,el)=>{
-//         return acum + el.precio;
-//     }, 0);
-//     console.log("El total del carrito es de: " + sum);
-// }
 
+fetch("./JS/data.json")
+.then(res=>res.json())
+.then(data=>{
+    data.forEach(element=>{
+        cargar(tienda,element);
+    })
+    crearTarjetas(tienda);
+})
 
-//Creación de los objetos
-const camisaMulticolor = new productos ("camisa Multicolor", "camisas", "l", "3500", "camisaMulticolor", "./imagenes/camisa.webp");
-const pantalonFloreado = new productos ("pantalón floreado", "pantalones", "xl", "2700", "pantalonFloreado", "./imagenes/pantalon1.webp");
-const remeraEstampada = new productos ("remera estampada", "remeras", "xxl", "2250", "remeraEstampada", "./imagenes/remera.webp");
-const conjuntoVerde = new productos ("conjunto verde", "conjuntos", "xl", "4500", "conjuntoVerde", "./imagenes/conjunto-verde.webp");
-const jeanAzul = new productos ("jean azul", "pantalones", "l", "2900", "jeanAzul", "./imagenes/jean.webp");
-const jeanGastado = new productos ("jean gastado", "pantalones", "xl", "2900", "jeanGastado", "./imagenes/jean2.webp");
-const conjuntoNegro = new productos ("conjunto negro", "conjuntos", "m", "4700", "conjuntoNegro", "./imagenes/conjunto-negro.webp");
-const camperaVerde = new productos ("campera verde", "camperas", "m", "3800", "camperaVerde", "./imagenes/campera.webp");
-const camisaLenadora = new productos ("camisa leñadora", "camisas", "l", "2800", "camisaLenadora", "./imagenes/camisa-lenadora.webp");
-const bermuda = new productos ("bermuda", "bermudas", "m", "2100", "bermuda", "./imagenes/bermuda.webp");
-const maxiCamisa = new productos ("maxicamisa", "camisas", "xxl", "2400", "maxiCamisa", "./imagenes/maxi-camisa.webp");
-const vestidoLila = new productos ("vestido lila", "vestidos","m", "3500", "vestidoLila", "./imagenes/vestido.webp");
-
-//creación del array de productos disponibles
-cargar(tienda, camisaMulticolor);
-cargar(tienda, pantalonFloreado);
-cargar(tienda, remeraEstampada);
-cargar(tienda, conjuntoVerde);
-cargar(tienda, jeanAzul);
-cargar(tienda, jeanGastado);
-cargar(tienda, conjuntoNegro);
-cargar(tienda, camperaVerde);
-cargar(tienda, camisaLenadora);
-cargar(tienda, bermuda);
-cargar(tienda, maxiCamisa);
-cargar(tienda, vestidoLila);
 
 //Carga de tarjetas en el DOM
 const divTienda = document.querySelector("#productos");
@@ -134,6 +108,7 @@ function crearCarrito() {
 
 //Agregando funcionalidad al boton de eliminar elementos individuales del carrito
 function agregarBotonEliminar (){
+    carrito.length!=0 &&
     carrito.forEach(producto=>{
         document.querySelector(`#btn-quitar${producto.id}`).addEventListener("click",()=>{
             producto.cantidad>1 ?  producto.cantidad = producto.cantidad-1 : eliminar(producto); //Operador ternario
@@ -156,6 +131,7 @@ function agregarBotonEliminar (){
 
 //Agregando funcionalidad al botón para vaciar todo el carrito de compras
 function agregarBotonVaciarCarrito (){
+    carrito.length!=0 &&
     document.querySelector("#vaciarCarrito").addEventListener("click", ()=> {
         Swal.fire({
             title: '¿Estás seguro/a?',
@@ -177,6 +153,7 @@ function agregarBotonVaciarCarrito (){
 
 //Funcionalidad limitada del boton comprar. El proyecto debe avanzar por este lado.
 function agregarBotonComprar () {
+    carrito.length!=0 &&
     document.querySelector("#comprarCarrito").addEventListener("click", ()=> {
         //alert("¡Lo siento! El botón aún no hace lo que esperas.");
 
@@ -213,5 +190,5 @@ eliminarFiltro.addEventListener("click", ()=> {
 
 
 //Mostrar tarjeta de productos y carrito si existen valores guardados en el local storage
-crearTarjetas(tienda);
+//crearTarjetas(tienda);
 crearCarrito();

@@ -1,0 +1,98 @@
+[
+    {
+        "articulo": "CAMISA MULTICOLOR",
+        "categoria": "camisas",
+        "talle": "L",
+        "precio": 3500,
+        "id": "camisaMulticolor",
+        "img": "./imagenes/camisa.webp"
+    },
+    {
+        "articulo": "PANTALÓN FLOREADO",
+        "categoria": "pantalones",
+        "talle": "XL",
+        "precio": 2700,
+        "id": "pantalonFloreado",
+        "img": "./imagenes/pantalon1.webp"
+    },
+    {
+        "articulo": "REMERA ESTAMPADA",
+        "categoria": "remeras",
+        "talle": "XXL",
+        "precio": 2250,
+        "id": "remeraEstampada",
+        "img": "./imagenes/remera.webp"
+    },
+    {
+        "articulo": "CONJUNTO VERDE",
+        "categoria": "conjuntos",
+        "talle": "XL",
+        "precio": 4500,
+        "id": "conjuntoVerde",
+        "img": "./imagenes/conjunto-verde.webp"
+    },
+    {
+        "articulo": "JEAN AZUL",
+        "categoria": "pantalones",
+        "talle": "L",
+        "precio": 2900,
+        "id": "jeanAzul",
+        "img": "./imagenes/jean.webp"
+    },
+    {
+        "articulo": "JEAN GASTADO",
+        "categoria": "pantalones",
+        "talle": "XL",
+        "precio": 2900,
+        "id": "jeanGastado",
+        "img": "./imagenes/jean2.webp"
+    },
+    {
+        "articulo": "CONJUNTO NEGRO",
+        "categoria": "conjuntos",
+        "talle": "M",
+        "precio": 4700,
+        "id": "conjuntoNegro",
+        "img": "./imagenes/conjunto-negro.webp"
+    },
+    {
+        "articulo": "CAMPERA VERDE",
+        "categoria": "camperas",
+        "talle": "M",
+        "precio": 3800,
+        "id": "camperaVerde",
+        "img": "./imagenes/campera.webp"
+    },
+    {
+        "articulo": "CAMISA LEÑADORA",
+        "categoria": "camisas",
+        "talle": "L",
+        "precio": 2800,
+        "id": "camisaLenadora",
+        "img": "./imagenes/camisa-lenadora.webp"
+    },
+    {
+        "articulo": "BERMUDA",
+        "categoria": "bermudas",
+        "talle": "M",
+        "precio": 2100,
+        "id": "bermuda",
+        "img": "./imagenes/bermuda.webp"
+    },
+    {
+        "articulo": "MAXICAMISA",
+        "categoria": "camisas",
+        "talle": "XXL",
+        "precio": 2400,
+        "id": "maxiCamisa",
+        "img": "./imagenes/maxi-camisa.webp"
+    },
+    {
+        "articulo": "VESTIDO LILA",
+        "categoria": "vestidos",
+        "talle": "M",
+        "precio": 3500,
+        "id": "vestidoLila",
+        "img": "./imagenes/vestido.webp"
+    }
+]
