@@ -167,19 +167,23 @@ function agregarBotonComprar () {
 //Creación de un array de las categorías disponibles para poder filtrar
 //función redefinida usando la desectructuración de un objeto y obteniendo el parámetro de interes
 const categorias = []
-tienda.forEach(producto=>{
-    let {categoria}=producto;
-    categorias.some(prod => prod===categoria) ? "" : categorias.push(categoria)
-})
+fetch("./JS/data.json")
+.then(res=>res.json())
+.then(data=>{
+    data.forEach(producto=>{
+        let {categoria}=producto;
+        categorias.some(prod => prod===categoria) ? "" : categorias.push(categoria)
+    })
 
-//Agregando funcionalidad al filtro
-categorias.forEach(element=> {
-    document.querySelector(`#${element}`).addEventListener("click", ()=> {
-        divTienda.innerHTML = "";
-            const mostrarfiltro = tienda.filter (el => el.categoria.includes(`${element}`));
-            crearTarjetas(mostrarfiltro);
+    categorias.forEach(element=> {
+        document.querySelector(`#${element}`).addEventListener("click", ()=> {
+            divTienda.innerHTML = "";
+                const mostrarfiltro = tienda.filter (el => el.categoria.includes(`${element}`));
+                crearTarjetas(mostrarfiltro);
+        })
     })
 })
+
 
 //Agregando funcionalidad al boton para eliminar el filtro aplicado y mostrar toda la tienda
 const eliminarFiltro=document.querySelector("#eliminarFiltro");
