@@ -3,6 +3,8 @@
 //Declaración del variables tienda y carrito
 const tienda = [];
 let carrito = JSON.parse(localStorage.getItem("carrito")) || []; //Operedor lógico OR para acceso condicional a la variable en el local storage
+const contadorCarrito = document.querySelector("#contadorCarrito"),
+botonVerCarrito = document.querySelector("#botonVerCarrito");
 
 //Clase constructora de objetos
 class productos {
@@ -60,7 +62,6 @@ function agregarBoton (array){
         document.querySelector(`#btn-agregar${producto.id}`).addEventListener("click",()=>{
             //cambio de un if..else por el operador ternario
             carrito.some(prod=>prod.id === producto.id) ? (carrito.find(prod=> prod.id===producto.id).cantidad++) : (producto.cantidad = 1, cargar(carrito,producto));
-            
             crearCarrito();
 
             Toastify({
@@ -100,6 +101,7 @@ function crearCarrito() {
     carrito.length==0 ? divCarrito.innerHTML="" : divCarrito.innerHTML+=`<button class="btn boton botonComprar" id="vaciarCarrito">Vaciar carrito</button>
     <button class="btn boton botonComprar" id="comprarCarrito">Comprar</button>`;
    
+    contadorCarrito.innerText=carrito.length;
     localStorage.setItem("carrito",JSON.stringify(carrito)); //Guardo los productos agregados al carrito en el local storage
     agregarBotonEliminar ();
     agregarBotonVaciarCarrito ();
@@ -188,6 +190,8 @@ fetch("./JS/data.json")
 //Agregando funcionalidad al boton para eliminar el filtro aplicado y mostrar toda la tienda
 const eliminarFiltro=document.querySelector("#eliminarFiltro");
 eliminarFiltro.addEventListener("click", ()=> {
+    let toggle = document.querySelector("#flecha");
+    toggle.className==="bi bi-caret-down" ? eliminarFiltro.innerHTML=`<i class="bi bi-caret-up" id="flecha">` : eliminarFiltro.innerHTML=`<i class="bi bi-caret-down" id="flecha">`;
     divTienda.innerHTML = "";
     crearTarjetas(tienda);
 })

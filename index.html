@@ -52,11 +52,17 @@
         <main class="main">
             <!-- Título de la página -->
             <h1 class="titulos">Catálogo de productos</h1>
+            <button id="botonVerCarrito">
+                <i class="bi bi-cart iconoCarrito">
+                    <p class="contadorCarrito" id="contadorCarrito"></p>
+                </i>
+
+            </button>
 
             <!--tarjetas de productos -->
             <section class="container">
                 <div class="row filtro container" id="filtro">
-                    <h3>Filtro <button class="eliminarFiltro" id="eliminarFiltro">🗑</button></h3>
+                    <h3>Filtro <button class="eliminarFiltro" id="eliminarFiltro"><i class="bi bi-caret-down" id="flecha"></i></button></h3>
                     <div>
                         <input type="radio" id="camisas" name="filtrados">
                         <label for="camisas">Camisas</label>
