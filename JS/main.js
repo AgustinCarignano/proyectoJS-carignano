@@ -168,7 +168,8 @@ function agregarBotonComprar () {
 }
 //Creación de un array de las categorías disponibles para poder filtrar
 //función redefinida usando la desectructuración de un objeto y obteniendo el parámetro de interes
-const categorias = []
+
+/* const categorias = []
 fetch("./JS/data.json")
 .then(res=>res.json())
 .then(data=>{
@@ -184,18 +185,102 @@ fetch("./JS/data.json")
                 crearTarjetas(mostrarfiltro);
         })
     })
-})
+}) */
 
 
 //Agregando funcionalidad al boton para eliminar el filtro aplicado y mostrar toda la tienda
-const eliminarFiltro=document.querySelector("#eliminarFiltro");
-eliminarFiltro.addEventListener("click", ()=> {
+const toggleFiltro=document.querySelector("#toggleFiltro");
+const mostrarOpciones = document.querySelector("#opcionesFiltro");
+const botonesFiltro = document.querySelector("#botonesFiltro")
+toggleFiltro.addEventListener("click", ()=> {
     let toggle = document.querySelector("#flecha");
-    toggle.className==="bi bi-caret-down" ? eliminarFiltro.innerHTML=`<i class="bi bi-caret-up" id="flecha">` : eliminarFiltro.innerHTML=`<i class="bi bi-caret-down" id="flecha">`;
-    divTienda.innerHTML = "";
-    crearTarjetas(tienda);
+    if (toggle.className==="bi bi-caret-down") {
+        toggleFiltro.innerHTML=`<i class="bi bi-caret-up" id="flecha">`;
+        //mostrarOpciones.innerHTML="";
+        mostrarOpciones.classList.remove("ocultar");
+        //botonesFiltro.innerHTML="";
+        /* mostrarOpciones.innerHTML+=`
+            <div>
+                <input type="checkbox" id="camisas" name="categorias">
+                <label for="camisas">Camisas</label>
+            </div>
+            <div>
+                <input type="checkbox" id="pantalones" name="categorias">
+                <label for="pantalones">Pantalones</label>
+            </div>
+            <div>
+                <input type="checkbox" id="remeras" name="categorias">
+                <label for="remeras">Remeras</label>
+            </div>
+            <div>
+                <input type="checkbox" id="conjuntos" name="categorias">
+                <label for="conjuntos">Conjuntos</label>
+            </div>
+            <div>
+                <input type="checkbox" id="camperas" name="categorias">
+                <label for="camperas">Camperas</label>
+            </div>
+            <div>
+                <input type="checkbox" id="bermudas" name="categorias">
+                <label for="bermudas">Bermudas</label>
+            </div>
+            <div>
+                <input type="checkbox" id="vestidos" name="categorias">
+                <label for="vestidos">Vestidos</label>
+            </div>
+            ` */
+            botonesFiltro.classList.remove('ocultar')
+        // botonesFiltro.innerHTML+=`
+        //     <button class="btn boton " id="aplicarFiltro">Aplicar</button>
+        //     <button class="btn boton" id="restablecerFiltro">Restablecer</button>
+        // `
+        agregarFuncionAplicarFiltro();
+        agregarFuncionRestablecerFiltro();
+    } else {
+        toggleFiltro.innerHTML=`<i class="bi bi-caret-down" id="flecha">`;
+        //mostrarOpciones.innerHTML="";
+        mostrarOpciones.classList.add("ocultar")
+        //botonesFiltro.innerHTML="";
+        botonesFiltro.classList.add('ocultar')
+    }
+    //divTienda.innerHTML = "";
+    //crearTarjetas(tienda);
 })
 
+function agregarFuncionAplicarFiltro(){
+    document.querySelector("#aplicarFiltro").addEventListener("click", ()=> {
+        let categorias = document.querySelectorAll('input[name="categorias"]');
+        let tiendaFiltrada = []
+        for (const categoria of categorias) {
+            if (categoria.checked){
+                let categoriaFiltrada = tienda.filter(el=>el.categoria==categoria.id);
+                categoriaFiltrada.forEach(el=>{
+                    tiendaFiltrada.push(el)
+                })
+                //let tiendaFiltrada = []
+                //tiendaFiltrada.push(tienda.filter(el=>el.categoria==categoria.id))
+            }
+        }
+        divTienda.innerHTML = "";
+        if (tiendaFiltrada.length==0) {
+            Swal.fire('¡No ha seleccionado ninguna categoría!')
+            crearTarjetas(tienda)
+        }else{
+            crearTarjetas(tiendaFiltrada);
+        }
+    })
+}
+
+function agregarFuncionRestablecerFiltro() {
+    document.querySelector("#restablecerFiltro").addEventListener("click", ()=> {
+        let categorias = document.querySelectorAll('input[name="categorias"]');
+        for (const categoria of categorias) {
+            categoria.checked=false;
+        }
+        divTienda.innerHTML = "";
+        crearTarjetas(tienda);
+    })
+}
 
 //Mostrar tarjeta de productos y carrito si existen valores guardados en el local storage
 //crearTarjetas(tienda);

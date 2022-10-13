@@ -62,8 +62,44 @@
             <!--tarjetas de productos -->
             <section class="container">
                 <div class="row filtro container" id="filtro">
-                    <h3>Filtro <button class="eliminarFiltro" id="eliminarFiltro"><i class="bi bi-caret-down" id="flecha"></i></button></h3>
-                    <div>
+                    <h3>Filtro <button class="toggleFiltro" id="toggleFiltro"><i class="bi bi-caret-down" id="flecha"></i></button></h3>
+                    
+                    <div class="opcionesFiltro ocultar" id="opcionesFiltro">
+                        <div>
+                            <input type="checkbox" id="camisas" name="categorias">
+                            <label for="camisas">Camisas</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="pantalones" name="categorias">
+                            <label for="pantalones">Pantalones</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="remeras" name="categorias">
+                            <label for="remeras">Remeras</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="conjuntos" name="categorias">
+                            <label for="conjuntos">Conjuntos</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="camperas" name="categorias">
+                            <label for="camperas">Camperas</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="bermudas" name="categorias">
+                            <label for="bermudas">Bermudas</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="vestidos" name="categorias">
+                            <label for="vestidos">Vestidos</label>
+                        </div>
+                    </div>
+                    <div class="botonesFiltro ocultar" id="botonesFiltro">
+                        <button class="btn boton " id="aplicarFiltro">Aplicar</button>
+                        <button class="btn boton" id="restablecerFiltro">Restablecer</button>
+                    </div>
+
+                    <!-- <div>
                         <input type="radio" id="camisas" name="filtrados">
                         <label for="camisas">Camisas</label>
                     </div>
@@ -90,7 +126,8 @@
                     <div>
                         <input type="radio" id="vestidos" name="filtrados">
                         <label for="vestidos">Vestidos</label>
-                    </div>
+                    </div> -->
+
                 </div>
                 <div class="row tienda" id="productos">
                 </div>
