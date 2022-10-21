@@ -3,8 +3,9 @@
   
   body {
     background-image: linear-gradient(to bottom right, #e7d3ca, rgba(231, 211, 202, 0.25)); }
-  
+
   main {
+    min-height: 60vh;
     padding: 20px 0; }
   
   .titulo-index, .titulos {
@@ -182,11 +183,6 @@
   max-width: 500px;
 }
 
-.carritoTitulo {
-  text-align: center;
-  border-top: solid 1px #711d7a;
-}
-
 .divCarrito{
  width: 170px;
 }
@@ -202,6 +198,12 @@
 
 .tarjetaCarrito p {
   margin: 0;
+}
+
+.botonSumaResta {
+  width: 40px;
+  height: 40px;
+  margin: 5px 0;
 }
 
 .tienda {
@@ -242,22 +244,126 @@
   margin: 15px auto 0;
 }
 
-#botonVerCarrito{
-  padding: 0;
-  border: 0;
+.botonVerCarrito{
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #8E37A6;
+  position: fixed;
+  right: 121px;
+  top: 148px;
+  z-index: 10;
+  height: 70px;
+  line-height: 15px;
+  font-size: 1rem;
+  color: whitesmoke;
 }
 
 .iconoCarrito {
   font-size: 1.5rem;
   color: whitesmoke;
-  position: absolute;
-  right: 135px;
-  top: 165px;
+  margin: 0;
 }
 
 .contadorCarrito {
-  font-size: 1rem;
-  position: absolute;
-  right: -20px;
-  top: 0px;
+  position: relative;
+  right: -25px;
+  top: -20px;
+  margin: 0;
+}
+
+.leyendaCarrito{
+  position: relative;
+  margin: 0;
+}
+
+.resumenCarrito {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-top: 15px;
+  border-top: solid 1px #8E37A6;
+  border-bottom: solid 1px #8E37A6;
+  text-align: center;
+}
+
+.resumenCarrito p {
+  margin: 5px;
+}
+
+.comprar {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.seccionComprar {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border: solid 2px #8E37A6;
+  border-radius: 10px;
+}
+
+.seccionComprar h6 {
+text-align: center;
+padding-bottom: 7px;
+border-bottom: solid 1px #8E37A6;
+}
+
+.botonesCompra {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 15px;
+}
+
+.textoDireccion{
+  width: 175px;
+  margin: 5px;
+  text-align: right;
+}
+
+.finalizarCompra {
+  padding: 10px;
+  border: solid 2px #8E37A6;
+  border-radius: 10px;
+}
+
+.resumenCompra {
+  display: flex;
+  flex-direction: column;
+  margin: 5px 50px;
+}
+
+.resumenCompra h6 {
+  margin: 2px 0;
+}
+
+.resumenCompraDetalle{
+ display: flex;
+ justify-content: space-between;
+}
+
+.resumenCompraDetalle p {
+  margin: 0;
+}
+
+.resumenCompraDetalle img {
+  width: 50px;
+  margin-right: 100px;
+}
+
+.resumenValores {
+  border-top: solid 1px #8E37A6;
+  margin: 10px 0;
+}
+
+.resumenValores p{
+  margin: 5px 60px;
+  width: 340px;
+  text-align: right;
+}
+
+.mensajes {
+  text-align: center;
+  margin-top: 50px;
 }

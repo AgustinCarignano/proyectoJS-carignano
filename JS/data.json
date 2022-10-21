@@ -1,6 +1,6 @@
 [
     {
-        "articulo": "CAMISA MULTICOLOR",
+        "articulo": "Camisa multicolor",
         "categoria": "camisas",
         "talle": "L",
         "precio": 3500,
@@ -8,7 +8,7 @@
         "img": "./imagenes/camisa.webp"
     },
     {
-        "articulo": "PANTALÓN FLOREADO",
+        "articulo": "Pantalon floreado",
         "categoria": "pantalones",
         "talle": "XL",
         "precio": 2700,
@@ -16,7 +16,7 @@
         "img": "./imagenes/pantalon1.webp"
     },
     {
-        "articulo": "REMERA ESTAMPADA",
+        "articulo": "Remera estampada",
         "categoria": "remeras",
         "talle": "XXL",
         "precio": 2250,
@@ -24,7 +24,7 @@
         "img": "./imagenes/remera.webp"
     },
     {
-        "articulo": "CONJUNTO VERDE",
+        "articulo": "Conjunto verde",
         "categoria": "conjuntos",
         "talle": "XL",
         "precio": 4500,
@@ -32,7 +32,7 @@
         "img": "./imagenes/conjunto-verde.webp"
     },
     {
-        "articulo": "JEAN AZUL",
+        "articulo": "Jean azul",
         "categoria": "pantalones",
         "talle": "L",
         "precio": 2900,
@@ -40,7 +40,7 @@
         "img": "./imagenes/jean.webp"
     },
     {
-        "articulo": "JEAN GASTADO",
+        "articulo": "Jean gastado",
         "categoria": "pantalones",
         "talle": "XL",
         "precio": 2900,
@@ -48,7 +48,7 @@
         "img": "./imagenes/jean2.webp"
     },
     {
-        "articulo": "CONJUNTO NEGRO",
+        "articulo": "Conjunto negro",
         "categoria": "conjuntos",
         "talle": "M",
         "precio": 4700,
@@ -56,7 +56,7 @@
         "img": "./imagenes/conjunto-negro.webp"
     },
     {
-        "articulo": "CAMPERA VERDE",
+        "articulo": "Campera verde",
         "categoria": "camperas",
         "talle": "M",
         "precio": 3800,
@@ -64,7 +64,7 @@
         "img": "./imagenes/campera.webp"
     },
     {
-        "articulo": "CAMISA LEÑADORA",
+        "articulo": "Camisa leñadora",
         "categoria": "camisas",
         "talle": "L",
         "precio": 2800,
@@ -72,7 +72,7 @@
         "img": "./imagenes/camisa-lenadora.webp"
     },
     {
-        "articulo": "BERMUDA",
+        "articulo": "Bermuda",
         "categoria": "bermudas",
         "talle": "M",
         "precio": 2100,
@@ -80,7 +80,7 @@
         "img": "./imagenes/bermuda.webp"
     },
     {
-        "articulo": "MAXICAMISA",
+        "articulo": "Maxicamisa",
         "categoria": "camisas",
         "talle": "XXL",
         "precio": 2400,
@@ -88,7 +88,7 @@
         "img": "./imagenes/maxi-camisa.webp"
     },
     {
-        "articulo": "VESTIDO LILA",
+        "articulo": "Vestido lila",
         "categoria": "vestidos",
         "talle": "M",
         "precio": 3500,
