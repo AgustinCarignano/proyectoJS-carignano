@@ -129,13 +129,13 @@ function agregarBoton (array){
                 duration: 3000,
                 gravity: "bottom",
                 position: "right",
-                stopOnFocus: true,
+                stopOnFocus: false,
                 style: {
                   background: "#4E5C23",
                   textAlign:"center",
                   lineHeight:"15px"
                 },
-                onClick: ()=>{crearCarrito(1000);} //Para ver el carrito de compras al clickear sobre el mensaje
+                onClick: ()=>{crearCarrito(1000)} //Para ver el carrito de compras al clickear sobre el mensaje
               }).showToast();
         })
     })
@@ -143,8 +143,9 @@ function agregarBoton (array){
 
 //Creación del carrito de compras cuando se seleccionan productos (o a partir del local storage). La variable "tiempo" permite simular un proceso de carga
 function crearCarrito(tiempo) {
-    divTienda.innerHTML=`<h6 class="mensajes">PROCESANDO...</h6>`
+    divTienda.innerHTML=`<h6 class="mensajes">PROCESANDO...</h6>`;
     setTimeout(()=>{
+        divCarrito.innerHTML="";
         seccionFiltro.classList.add("ocultar")
         divTienda.innerHTML="";
         tituloPagina.innerText="Carrito";
@@ -207,7 +208,6 @@ function agregarBotonRestar (){
     carrito.forEach(producto=>{
         document.querySelector(`#btn-restar${producto.id}`).addEventListener("click",()=>{
             producto.cantidad>1 ?  producto.cantidad = producto.cantidad-1 : eliminar(producto);
-            divCarrito.innerHTML="";
             carrito.length==0 ? restablecer () : crearCarrito(0);
         })
     })
@@ -218,7 +218,6 @@ function agregarBotonSumar() {
     carrito.forEach(producto=>{
         document.querySelector(`#btn-sumar${producto.id}`).addEventListener("click",()=>{
             producto.cantidad = producto.cantidad+1;
-            divCarrito.innerHTML="";
             crearCarrito(0);
         })
 })
@@ -284,7 +283,6 @@ botonVerCarrito.addEventListener("click",()=>{
     if (carrito.length==0){
         Swal.fire('Aún no hay productos en el carrito')
     }else{
-        divCarrito.innerHTML="";
         crearCarrito(1000)
     }
 })
