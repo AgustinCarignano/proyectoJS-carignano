@@ -13,7 +13,7 @@ Para visualizar la aplicación, haz click en el siguiente enlace: [Barroca](http
 
 ## Descargue una copia del repositorio:
 
-    git clone https://github.com/AgustinCarignano/ProyectoReact-Carignanao.git
+    git clone https://github.com/AgustinCarignano/proyectoJS-carignano.git
 
 ## Créditos
 
